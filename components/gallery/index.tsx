@@ -29,7 +29,7 @@ const Gallery: React.FC<GalleryProps> = ({ images = [] }) => {
                 fill
                 src={image.url}
                 alt="Image"
-                className="object-cover object-center"
+                className="object-center object-scale-down"
               />
             </div>
           </Tab.Panel>
