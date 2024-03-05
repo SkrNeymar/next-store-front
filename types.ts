@@ -4,9 +4,16 @@ export interface Product {
   name: string;
   price: string;
   isFeatured: boolean;
-  size: Size;
-  color: Color;
   images: Image[]
+  variants: Variant[];
+};
+
+export interface Variant {
+  id: string;
+  productId: string;
+  sizeId: string;
+  colorId: string;
+  quantity: number;
 };
 
 export interface Image {

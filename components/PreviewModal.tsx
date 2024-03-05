@@ -5,7 +5,7 @@ import Gallery from "@/components/gallery"
 import Info from "@/components/Info"
 import Modal from "@/components/ui/Modal"
 
-const PreviewModal = () => {
+const PreviewModal = async () => {
   const previewModal = usePreviewModal()
   const product = usePreviewModal((state) => state.data)
 
