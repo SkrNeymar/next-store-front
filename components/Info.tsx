@@ -88,7 +88,7 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
               .map((size) => (
                 <button
                   key={size.id}
-                  className={`px-3 py-1 border ${
+                  className={`px-3 py-1 border rounded-md ${
                     selectedSizeId === size.id
                       ? "border-blue-500"
                       : "border-gray-300"
