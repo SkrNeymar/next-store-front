@@ -4,7 +4,10 @@ import { Color, Product, Size } from "@/types"
 import Currency from "@/components/ui/Currency"
 import Button from "./ui/Button"
 import { ShoppingCart } from "lucide-react"
-import { useEffect, useState } from "react"
+import { MouseEventHandler, useEffect, useState } from "react"
+import useCart from "@/hooks/useCart"
+import getProductVariant from "@/actions/getProductVariant"
+import getProduct from "@/actions/getProduct"
 
 interface InfoProps {
   data: Product
@@ -13,6 +16,8 @@ interface InfoProps {
 }
 
 const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
+  const cart = useCart()
+
   const [selectedSizeId, setSelectedSizeId] = useState("")
   const [selectedColorId, setSelectedColorId] = useState("")
 
@@ -61,6 +66,18 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
       //   setSelectedSizeId(sizes.values().next().value)
       // }
     }
+  }
+
+  const selectedVariant = data.variants.find(
+    (variant) =>
+      variant.sizeId === selectedSizeId && variant.colorId === selectedColorId
+  )
+
+  const variantId = selectedVariant ? selectedVariant.id : ""
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = async (event) => {
+    event.stopPropagation()
+    cart.addItem(variantId)
   }
 
   return (
@@ -126,7 +143,7 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
         </div>
       </div>
       <div className="mt-10 flex items-center gap-x-3">
-        <Button className="flex items-center gap-x-2">
+        <Button className="flex items-center gap-x-2" onClick={onAddToCart}>
           Add To Cart <ShoppingCart />
         </Button>
       </div>

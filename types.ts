@@ -44,3 +44,23 @@ export interface Color {
   name: string;
   value: string;
 };
+
+export interface ProductVariant {
+  id: string;
+  productId: string;
+  sizeId: string;
+  colorId: string;
+  quantity: number;
+  product: {
+    id: string;
+    storeId: string;
+    categoryId: string;
+    name: string;
+    price: string;
+    isFeatured: boolean;
+    isArchived: boolean;
+    images: Image[];
+    createdAt: string;
+    updatedAt: string;
+  }
+};
