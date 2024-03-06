@@ -5,10 +5,10 @@ import { X } from "lucide-react"
 import IconButton from "@/components/ui/IconButton"
 import Currency from "@/components/ui/Currency"
 import useCart from "@/hooks/useCart"
-import { Product } from "@/types"
+import { ProductVariant } from "@/types"
 
 interface CartItemProps {
-  data: Product
+  data: ProductVariant
 }
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
@@ -23,7 +23,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
       <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
         <Image
           fill
-          src={data.images[0].url}
+          src={data.product.images[0].url}
           alt=""
           className="object-scale-down object-center"
         />
@@ -34,7 +34,9 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
         </div>
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
           <div className="flex justify-between">
-            <p className=" text-lg font-semibold text-black">{data.name}</p>
+            <p className=" text-lg font-semibold text-black">
+              {data.product.name}
+            </p>
           </div>
 
           <div className="mt-1 flex text-sm">
@@ -43,7 +45,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
               {data.size.name}
             </p>
           </div>
-          <Currency value={data.price} />
+          <Currency value={data.product.price} />
         </div>
       </div>
     </li>

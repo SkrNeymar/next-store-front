@@ -24,7 +24,7 @@ const Summary = () => {
   }, [searchParams, removeAll])
 
   const totalPrice = items.reduce(
-    (total, item) => total + Number(item.price),
+    (total, item) => total + Number(item.product.price),
     0
   )
 
