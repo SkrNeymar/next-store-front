@@ -6,6 +6,7 @@ import IconButton from "@/components/ui/IconButton"
 import Currency from "@/components/ui/Currency"
 import useCart from "@/hooks/useCart"
 import { ProductVariant } from "@/types"
+import { useRouter } from "next/navigation"
 
 interface CartItemProps {
   data: ProductVariant
@@ -13,6 +14,11 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart()
+  const route = useRouter()
+
+  const onClickProduct = () => {
+    route.push(`/product/${data.product.id}`)
+  }
 
   const onRemove = () => {
     cart.removeItem(data.id)
@@ -33,7 +39,10 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
           <IconButton onClick={onRemove} icon={<X size={15} />} />
         </div>
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
-          <div className="flex justify-between">
+          <div
+            className="flex justify-between cursor-pointer"
+            onClick={onClickProduct}
+          >
             <p className=" text-lg font-semibold text-black">
               {data.product.name}
             </p>
