@@ -24,17 +24,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     router.push(`/product/${data?.id}`)
   }
 
-  const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.stopPropagation()
+  // const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
+  //   event.stopPropagation()
 
-    previewModal.onOpen(data)
-  }
+  //   previewModal.onOpen(data)
+  // }
 
-  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.stopPropagation()
-
-    cart.addItem(data)
-  }
+  // const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+  //   event.stopPropagation()
+  //   cart.addItem(data)
+  // }
 
   return (
     <div
@@ -49,7 +48,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           alt="Image"
           className="object-cover rounded-md aspect-square"
         />
-        <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
+        {/* TODO: Product Preview */}
+        {/* <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
             <IconButton
               onClick={onPreview}
@@ -60,7 +60,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
               icon={<ShoppingCart size={20} className="text-gray-600" />}
             />
           </div>
-        </div>
+        </div> */}
       </div>
       {/* Product Info */}
       <div>
