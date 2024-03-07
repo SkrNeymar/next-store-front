@@ -46,10 +46,10 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
       setSelectedSizeId(sizeId)
       const colors = sizeToColorsMap.get(sizeId)
 
-      // Set the first color as selected
-      // if (colors && colors.size > 0) {
-      //   setSelectedColorId(colors.values().next().value)
-      // }
+      //Set the first color as selected
+      if (colors && colors.size === 1) {
+        setSelectedColorId(colors.values().next().value)
+      }
     }
   }
 
@@ -62,9 +62,9 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
       const sizes = colorToSizesMap.get(colorId)
 
       // Set the first size as selected
-      // if (sizes && sizes.size > 0) {
-      //   setSelectedSizeId(sizes.values().next().value)
-      // }
+      if (sizes && sizes.size === 1) {
+        setSelectedSizeId(sizes.values().next().value)
+      }
     }
   }
 
@@ -99,8 +99,10 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
                   const matchedSizes = colorToSizesMap.get(selectedColorId)
                   return matchedSizes && matchedSizes.has(size.id)
                 }
-                // If no color is selected, show all sizes
-                return true
+                // If no color is selected, show all available sizes
+                return new Set(
+                  data.variants.map((variant) => variant.sizeId)
+                ).has(size.id)
               })
               .map((size) => (
                 <button
@@ -126,8 +128,10 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
                   const matchedColors = sizeToColorsMap.get(selectedSizeId)
                   return matchedColors && matchedColors.has(color.id)
                 }
-                // If no size is selected, show all colors
-                return true
+                // If no size is selected, show all available colors
+                return new Set(
+                  data.variants.map((variant) => variant.colorId)
+                ).has(color.id)
               })
               .map((color) => (
                 <div
@@ -143,7 +147,11 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
         </div>
       </div>
       <div className="mt-10 flex items-center gap-x-3">
-        <Button className="flex items-center gap-x-2" onClick={onAddToCart}>
+        <Button
+          disabled={!selectedVariant}
+          className="flex items-center gap-x-2"
+          onClick={onAddToCart}
+        >
           Add To Cart <ShoppingCart />
         </Button>
       </div>
