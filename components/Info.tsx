@@ -8,6 +8,7 @@ import { MouseEventHandler, useEffect, useState } from "react"
 import useCart from "@/hooks/useCart"
 import getProductVariant from "@/actions/getProductVariant"
 import getProduct from "@/actions/getProduct"
+import { BeatLoader } from "react-spinners"
 
 interface InfoProps {
   data: Product
@@ -20,6 +21,7 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
 
   const [selectedSizeId, setSelectedSizeId] = useState("")
   const [selectedColorId, setSelectedColorId] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const sizeToColorsMap = new Map()
   const colorToSizesMap = new Map()
@@ -77,7 +79,9 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.stopPropagation()
-    cart.addItem(variantId)
+    setLoading(true)
+    await cart.addItem(variantId)
+    setLoading(false)
   }
 
   return (
@@ -148,11 +152,12 @@ const Info: React.FC<InfoProps> = ({ data, sizes, colors }) => {
       </div>
       <div className="mt-10 flex items-center gap-x-3">
         <Button
-          disabled={!selectedVariant}
+          disabled={!selectedVariant || loading}
           className="flex items-center gap-x-2"
           onClick={onAddToCart}
         >
-          Add To Cart <ShoppingCart />
+          {loading ? <BeatLoader size={20} color="#ffffff" /> : "Add To Cart"}
+          {!loading && <ShoppingCart />}
         </Button>
       </div>
     </div>
